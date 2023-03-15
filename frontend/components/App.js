@@ -1,8 +1,29 @@
 import React from 'react'
+import axios from 'axios'
 
 const URL = 'http://localhost:9000/api/todos'
 
 export default class App extends React.Component {
+  state = {
+    todos: [], 
+
+  }
+  //FETCHALL METHOD
+  fetchAllTodos = () => {
+    axios.get(URL)
+    .then(res => {
+      debugger
+    })
+    .catch(err => {
+      debugger
+    })
+
+  }
+  //COMPONENTDIDMOUNT
+  componentDidMount(){
+    // fetch all todos from server
+
+  }
   render() {
     return (
       <div>
