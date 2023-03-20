@@ -6,22 +6,22 @@ const URL = 'http://localhost:9000/api/todos'
 export default class App extends React.Component {
   state = {
     todos: [], 
-
   }
   //FETCHALL METHOD
   fetchAllTodos = () => {
     axios.get(URL)
     .then(res => {
-      debugger
+      this.setState({ ...this.state, todos: res.data.data })
     })
     .catch(err => {
       debugger
+      console.log(err)
     })
 
   }
   //COMPONENTDIDMOUNT
   componentDidMount(){
-    // fetch all todos from server
+    this.fetchAllTodos()
 
   }
   render() {
@@ -30,8 +30,11 @@ export default class App extends React.Component {
         <div id = "error">Error: No Error Here</div>
         <div id = "todos">
           <h2>TODOS:</h2>
-          <div>Walk The Dog</div>
-          <div>Learn React</div>
+          {
+            this.state.todos.map(td => {
+              return <div>{td.name}</div>
+            })
+          }
         </div>
         <form id="todoform">
           <input type="text"></input>
