@@ -21,6 +21,7 @@ postNewTodo = () => {
   axios.post(URL, { name: this.state.todoNameInput })
   .then (res => {
     this.fetchAllTodos()
+    this.setState({ ...this.state, todoNameInput:''})
   })
   .catch(err => {
     this.setState({ ...this.state, error: err.response.data.message})
