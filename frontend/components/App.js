@@ -1,13 +1,22 @@
 import React from 'react'
 import axios from 'axios'
 
-const URL = 'http://localhost:9000/api/todosZ'
+const URL = 'http://localhost:9000/api/todos'
 
 export default class App extends React.Component {
   state = {
     todos: [], 
     error:'',
+    todoNameInput:'',
   }
+
+  //ONTODONAMEINPUTCHANGE 
+  onTodoNameInputChange = evt => {
+    const { value } = evt.target
+   this.setState({ ...this.state, todoNameInput: value})
+  }
+
+
   //FETCHALL METHOD
   fetchAllTodos = () => {
     axios.get(URL)
@@ -38,7 +47,7 @@ export default class App extends React.Component {
           }
         </div>
         <form id="todoform">
-          <input type="text"></input>
+          <input value={this.state.todoNameInput} onChange={this.onTodoNameInputChange} type="text"></input>
           <input type="submit"></input>
           <button>Clear Completed</button>
         </form>
