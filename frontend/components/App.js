@@ -10,11 +10,28 @@ export default class App extends React.Component {
     todoNameInput:'',
   }
 
-  //ONTODONAMEINPUTCHANGE 
+  //ONTODONAMEINPUTCHANGE (Change Handler)
   onTodoNameInputChange = evt => {
     const { value } = evt.target
    this.setState({ ...this.state, todoNameInput: value})
   }
+
+//POST NEW TODO HELPER (Called when form submits)
+postNewTodo = () => {
+  axios.post(URL, { name: this.state.todoNameInput })
+  .then (res => {
+    debugger 
+  })
+  .catch(err => {
+    this.setState({ ...this.state, error: err.response.data.message})
+  })
+}
+
+//Todo Form Submit (Submit Handler)
+onTodoFormSubmit = (evt) => {
+  evt.preventDefault()
+  this.postNewTodo()
+}
 
 
   //FETCHALL METHOD
@@ -29,6 +46,7 @@ export default class App extends React.Component {
     })
 
   }
+
   //COMPONENTDIDMOUNT
   componentDidMount(){
     this.fetchAllTodos()
@@ -46,7 +64,7 @@ export default class App extends React.Component {
             })
           }
         </div>
-        <form id="todoform">
+        <form id="todoform" onSubmit={this.onTodoFormSubmit}>
           <input value={this.state.todoNameInput} onChange={this.onTodoNameInputChange} type="text"></input>
           <input type="submit"></input>
           <button>Clear Completed</button>
