@@ -20,7 +20,7 @@ export default class App extends React.Component {
 postNewTodo = () => {
   axios.post(URL, { name: this.state.todoNameInput })
   .then (res => {
-    debugger 
+    this.fetchAllTodos()
   })
   .catch(err => {
     this.setState({ ...this.state, error: err.response.data.message})
