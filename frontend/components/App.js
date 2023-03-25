@@ -32,7 +32,7 @@ export default class App extends React.Component {
           <h2>TODOS:</h2>
           {
             this.state.todos.map(td => {
-              return <div>{td.name}</div>
+              return <div key = {td.id}>{td.name}</div>
             })
           }
         </div>
