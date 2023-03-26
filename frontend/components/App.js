@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Form from './Form'
 
 const URL = 'http://localhost:9000/api/todos'
 
@@ -92,11 +93,13 @@ onTodoFormSubmit = (evt) => {
             }, [])
           }
         </div>
-        <form id="todoform" onSubmit={this.onTodoFormSubmit}>
-          <input value={this.state.todoNameInput} onChange={this.onTodoNameInputChange} type="text"></input>
-          <input type="submit"></input>
-          <button onClick={this.toggleDisplayCompleted}> {this.state.displayCompleteds ? 'Hide' : 'Show'} Completed</button>
-        </form>
+        <Form 
+        onTodoFormSubmit = {this.onTodoFormSubmit}
+        onTodoNameInputChange = {this.onTodoNameInputChange}
+        toggleDisplayCompleted = {this.toggleDisplayCompleted}
+        todoNameInput = {this.state.todoNameInput}
+        displayCompleteds = {this.state.displayCompleteds}
+        />
       </div>
     )
   }
