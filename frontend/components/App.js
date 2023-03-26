@@ -46,6 +46,23 @@ onTodoFormSubmit = (evt) => {
       //console.log(err)
     })
 
+  } 
+
+  //TOGGLE COMPLETED
+  //Partial App?
+
+  toggleCompleted = id => () =>{
+    axios.patch(`${URL}/${id}`)
+    .then(res => {
+      this.setState({ 
+        ...this.state, todos: this.state.todos.map( td => {
+          if (td.id !== id)  return td
+          return res.data.data
+        }) })
+    })
+    .catch(err => {
+      this.setState({ ...this.state, error: err.response.data.message})
+    })
   }
 
   //COMPONENTDIDMOUNT
@@ -61,7 +78,7 @@ onTodoFormSubmit = (evt) => {
           <h2>TODOS:</h2>
           {
             this.state.todos.map(td => {
-              return <div key = {td.id}>{td.name}</div>
+              return <div onClick={this.toggleCompleted(td.id)} key = {td.id}>{td.name}{td.completed ? ' ✔️' : ' '}</div>
             })
           }
         </div>
